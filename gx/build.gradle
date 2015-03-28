@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
-version '0.0.2'
+version '0.0.3'
 group 'com.rubyhuntersky'
 
 android {
@@ -30,10 +30,17 @@ dependencies {
     testCompile "org.mockito:mockito-core:1.9.5"
 }
 
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
 android.libraryVariants
 publishing {
     publications {
         maven(MavenPublication) {
+            artifact(sourceJar)
             artifact bundleRelease
         }
     }
